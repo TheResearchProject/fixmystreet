@@ -218,7 +218,7 @@ sub state_groups_inspect {
 sub fetch_area_children {
     my $self = shift;
 
-    my $areas = FixMyStreet::MapIt::call('areas', [ 'LBO' ]);
+    my $areas = FixMyStreet::MapIt::call('areas', $self->council_area_id);
     foreach (keys %$areas) {
         $areas->{$_}->{name} =~ s/\s*(Borough|City|District|County) Council$//;
     }
