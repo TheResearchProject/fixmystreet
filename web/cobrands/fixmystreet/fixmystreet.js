@@ -1270,16 +1270,7 @@ fixmystreet.update_report_a_problem_btn = function() {
 };
 
 fixmystreet.update_public_councils_text = function(text, bodies) {
-    var display_bodies = [];
-    $.each(bodies, function(index, body) {
-      if (fixmystreet.reporting_data &&
-          fixmystreet.reporting_data.display_names &&
-          fixmystreet.reporting_data.display_names[body] ) {
-        body = fixmystreet.reporting_data.display_names[body];
-      }
-      display_bodies.push(body);
-    });
-    bodies = display_bodies.join('</strong> ' + translation_strings.or + ' <strong>');
+    bodies = bodies.join('</strong> ' + translation_strings.or + ' <strong>');
     text = text.replace(/<strong>.*<\/strong>/, '<strong>' + bodies + '</strong>');
     $('#js-councils_text').html(text);
 };
