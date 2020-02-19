@@ -9,6 +9,7 @@ sub council_area { return 'Hackney'; }
 sub council_name { return 'Hackney Council'; }
 sub link_to_council_cobrand { return 'Hackney Council' }
 sub council_url { return 'hackney'; }
+sub send_questionnaires { 0 }
 
 sub disambiguate_location {
     my $self    = shift;
