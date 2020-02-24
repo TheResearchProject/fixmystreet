@@ -251,6 +251,80 @@ input.field, input.text,
   }
 }
 
+// Now the shortlist button styles need to be redefined with higher specificity :-(
+input[type=submit].item-list__item__shortlist-add {
+  @extend %list-item-action-button;
+  @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-inactive');
+
+  &:hover,
+  &:focus {
+    @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-inactive-hover');
+  }
+}
+
+input[type=submit].item-list__item__shortlist-remove {
+  @extend %list-item-action-button;
+  @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-active');
+
+  &:hover,
+  &:focus {
+    @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-active-hover');
+  }
+}
+
+input[type=submit].item-list__item__shortlist-take {
+  @extend %list-item-action-button;
+  @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-taken');
+
+  &:hover,
+  &:focus {
+    @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-taken-hover');
+  }
+}
+
+input[type=submit].item-list__item__shortlist-up {
+  @extend %list-item-action-button;
+
+  padding-top: 24px; // half the normal height, because shorter icon
+  background-size: 24px 14px;
+
+  @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-up');
+
+  &:hover,
+  &:focus {
+    @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-up-hover');
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: default;
+
+    @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-up');
+  }
+}
+
+input[type=submit].item-list__item__shortlist-down {
+  @extend %list-item-action-button;
+
+  margin-top: 0; // this is the "lower" arrow, so no need to offset vertical position
+  padding-top: 24px; // half the normal height, because shorter icon
+  background-size: 24px 14px;
+
+  @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-down');
+
+  &:hover,
+  &:focus {
+    @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-down-hover');
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: default;
+
+    @include svg-background-image('/cobrands/fixmystreet/images/icon-shortlist-down');
+  }
+}
+
 // Bromley's silly A-Z menu
 // Add a border to this to approximate Bromley's border between the breadcrumb
 // and A-Z menu
