@@ -55,6 +55,12 @@ sub manifest: Path("/.well-known/manifest.webmanifest") {
 }
 
 sub _stash_manifest_theme : Private {
+    my ($self, $c, $cobrand) = @_;
+
+    $c->stash->{manifest_theme} = $c->forward('_find_manifest_theme', [ $cobrand ]);
+}
+
+sub _find_manifest_theme : Private {
     my ($self, $c, $cobrand, $ignore_cache_and_defaults) = @_;
 
     my $key = "manifest_theme:$cobrand";
@@ -105,7 +111,7 @@ sub _stash_manifest_theme : Private {
         }
     }
 
-    $c->stash->{manifest_theme} = $manifest_theme;
+    return $manifest_theme;
 }
 
 sub _clear_manifest_theme_cache : Private {

@@ -14,9 +14,6 @@ sub auto :Private {
     } else {
         $c->stash(rs => $c->model('DB::ManifestTheme')->search_rs({ cobrand => $c->cobrand->moniker }));
     }
-    # We need to unset the default manifest_theme from Root::auto, otherwise
-    # the default icons will appear on our editing form.
-    delete $c->stash->{manifest_theme};
 }
 
 sub index :Path :Args(0) {
@@ -47,7 +44,7 @@ sub edit :PathPart('') :Chained('item') :Args(0) {
 
     # We need to do this after form processing, in case a form POST has deleted
     # an icon.
-    $c->forward('/offline/_stash_manifest_theme', [ $c->stash->{obj}->cobrand, 1 ]);
+    $c->stash->{editing_manifest_theme} = $c->forward('/offline/_find_manifest_theme', [ $c->stash->{obj}->cobrand, 1 ]);
 
     return $form;
 }
@@ -93,8 +90,8 @@ sub form {
 sub _delete_all_manifest_icons :Private {
     my ($self, $c) = @_;
 
-    $c->forward('/offline/_stash_manifest_theme', [ $c->stash->{obj}->cobrand, 1 ]);
-    foreach my $icon ( @{ $c->stash->{manifest_theme}->{icons} } ) {
+    my $theme = $c->forward('/offline/_find_manifest_theme', [ $c->stash->{obj}->cobrand, 1 ]);
+    foreach my $icon ( @{ $theme->{icons} } ) {
         unlink FixMyStreet->path_to('web', $icon->{src});
     }
 }
